@@ -12,13 +12,10 @@ pipeline {
   stages {
     stage("Update https://downloads.dcos.io/cli/index.html") {
       agent { label 'py36' }
-
       steps {
         withCredentials([
-          [$class: 'AmazonWebServicesCredentialsBinding',
-          credentialsId: 'a20fbd60-2528-4e00-9175-ebe2287906cf',
-          accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-          secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']
+          string(credentialsId: "1ddc25d8-0873-4b6f-949a-ae803b074e7a", variable: "AWS_ACCESS_KEY_ID"),
+          string(credentialsId: "875cfce9-90ca-4174-8720-816b4cb7f10f", variable: "AWS_SECRET_ACCESS_KEY")
         ]) {
             sh '''
               bash -exc " \
